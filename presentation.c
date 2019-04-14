@@ -196,20 +196,38 @@ bool presentation_compare(tPresentation p1, tPresentation p2) {
 // Create the presentation queue
 void presentationQueue_createQueue(tPresentationQueue* queue) {
     // PR2 EX1
+	queue->first=NULL;
+	queue->last=NULL;
 }
 
 
 // Enqueue a new presentation to the presentation queue
 tError presentationQueue_enqueue(tPresentationQueue* queue, tPresentation presentation) {
     // PR2 EX1
-    return ERR_NOT_IMPLEMENTED;        
+	tPresentationQueueNode *tmp;
+	
+		tmp = (tPresentationQueueNode*) malloc(sizeof(tPresentationQueueNode));
+		if (tmp == NULL){
+			return ERR_NOT_IMPLEMENTED;
+		}
+		else {
+			tmp->e = presentation;
+			tmp->next = NULL;
+			if (queue->first == NULL){
+				queue->first = tmp;
+			} else {
+			queue->last->next = tmp;
+			}
+			queue->last = tmp;
+		}
+		return OK;
 }
 
 
 // Check if the queue is empty
 bool presentationQueue_empty(tPresentationQueue queue) {
     // PR2 EX1
-    return false;
+	return queue.first == NULL;
 }
 
 

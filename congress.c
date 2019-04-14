@@ -24,7 +24,7 @@ void congress_init(tCongress* object, char* name) {
 
     // PR2 EX1 
     // Initialize presentations queue
-    // TODO 
+    
 }
 
 // Remove all data for a congress
