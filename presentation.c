@@ -208,7 +208,7 @@ tError presentationQueue_enqueue(tPresentationQueue* queue, tPresentation presen
 	
 		tmp = (tPresentationQueueNode*) malloc(sizeof(tPresentationQueueNode));
 		if (tmp == NULL){
-			return ERR_NOT_IMPLEMENTED;
+			return ERR_MEMORY_ERROR;
 		}
 		else {
 			tmp->e = presentation;

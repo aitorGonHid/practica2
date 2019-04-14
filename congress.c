@@ -111,24 +111,17 @@ tError congress_getGuests(tCongress* object, tGuestTable* guests) {
 // Add a new presentation
 tError congress_addPresentation(tCongress* object, const char* organization_name, double score, const char* presentationTitle, const char* presentationTopic) {
     // PR2 EX1
-	/*
-	 * 
 	tPresentation pres;
 	tOrganization *org;
+	//find the organization passed as parameter into the congress
 	org = organizationTable_find(object->organizations, organization_name);
-	
+	if (org == NULL)
+		return ERR_INVALID_ORGANIZATION;//organization doesn't exist
+	//initialize presentatión. Giving space in memory and addind the provided data by the function calling
 	presentation_init(&pres,org,score,presentationTitle,presentationTopic);
-	if (&(pres->organization) == NULL){
-		return ERR_INVALID_ORGANIZATION;
-	}
-	if (presentationQueue_enqueue(&(object->presentations),*pres) == OK){
-		presentationQueue_enqueue(&(object->presentations),*pres);
-	} else {
-		return ERR_MEMORY_ERROR;
-	}
-	* 
-	*/
-	return ERR_NOT_IMPLEMENTED;
+	//Add the new presentation to the queue. 
+	//The presentationQueue_enqueue function provides the error outputs (OK/ERR_MEMORY_ERROR) that verify the normal functioning
+	presentationQueue_enqueue(&object->presentations,pres);
 }
 
 
