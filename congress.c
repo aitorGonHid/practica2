@@ -24,7 +24,7 @@ void congress_init(tCongress* object, char* name) {
 
     // PR2 EX1 
     // Initialize presentations queue
-    
+	presentationQueue_createQueue(&(object->presentations));
 }
 
 // Remove all data for a congress
@@ -111,7 +111,24 @@ tError congress_getGuests(tCongress* object, tGuestTable* guests) {
 // Add a new presentation
 tError congress_addPresentation(tCongress* object, const char* organization_name, double score, const char* presentationTitle, const char* presentationTopic) {
     // PR2 EX1
-    return ERR_NOT_IMPLEMENTED;
+	/*
+	 * 
+	tPresentation pres;
+	tOrganization *org;
+	org = organizationTable_find(object->organizations, organization_name);
+	
+	presentation_init(&pres,org,score,presentationTitle,presentationTopic);
+	if (&(pres->organization) == NULL){
+		return ERR_INVALID_ORGANIZATION;
+	}
+	if (presentationQueue_enqueue(&(object->presentations),*pres) == OK){
+		presentationQueue_enqueue(&(object->presentations),*pres);
+	} else {
+		return ERR_MEMORY_ERROR;
+	}
+	* 
+	*/
+	return ERR_NOT_IMPLEMENTED;
 }
 
 
