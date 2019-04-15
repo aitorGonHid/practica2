@@ -234,7 +234,9 @@ bool presentationQueue_empty(tPresentationQueue queue) {
 // Return the first element from the queue
 tPresentation* presentationQueue_head(tPresentationQueue queue) {
     // PR2 EX2
-    return NULL;
+	if (presentationQueue_empty(queue))
+		return NULL;
+	return &queue.first->e;
 }
 
 
