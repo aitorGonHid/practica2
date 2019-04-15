@@ -243,6 +243,16 @@ tPresentation* presentationQueue_head(tPresentationQueue queue) {
 // Dequeue a presentation from the presentation queue
 void presentationQueue_dequeue(tPresentationQueue* queue) {
     // PR2 EX2
+	if (presentationQueue_empty(*queue) == false){
+		tPresentationQueueNode *node;
+		node=queue->first;
+		queue->first=queue->first->next;
+		if (queue->first == NULL)
+			queue->last = NULL;
+		//destroy(node->e);
+		free(node);
+	}
+		
 }
 
 
