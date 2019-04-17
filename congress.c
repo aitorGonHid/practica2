@@ -36,7 +36,7 @@ void congress_free(tCongress* object) {
     
     // PR2 EX2    
     // Remove data from presentations queue
-    // TODO
+    presentationQueue_free(&object->presentations);
 }
 
 // Register a new organization
