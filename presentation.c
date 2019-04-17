@@ -249,7 +249,7 @@ void presentationQueue_dequeue(tPresentationQueue* queue) {
 		queue->first=queue->first->next;
 		if (queue->first == NULL)
 			queue->last = NULL;
-		//destroy(node->e);
+		//destroy(node->e) may be necessary. Query posted in the forum
 		free(node);
 	}
 		
@@ -259,6 +259,9 @@ void presentationQueue_dequeue(tPresentationQueue* queue) {
 // Remove all elements of the queue
 void presentationQueue_free(tPresentationQueue* queue) {
     // PR2 EX2
+	while (presentationQueue_empty(*queue) == false){
+		presentationQueue_dequeue(queue);
+	}
 }
 
 
