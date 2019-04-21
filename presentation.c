@@ -249,7 +249,6 @@ void presentationQueue_dequeue(tPresentationQueue* queue) {
 		queue->first=queue->first->next;
 		if (queue->first == NULL)
 			queue->last = NULL;
-		//destroy(node->e);//may be necessary. Query posted in the forum
 		free(node);
 	}
 		
