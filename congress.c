@@ -128,7 +128,58 @@ tError congress_addPresentation(tCongress* object, const char* organization_name
 // Get if an organization wins on a topic. Wins means best score on a topic
 int congress_getOrganizationWins(tCongress* object, const char* organization_name, const char* topic) {
     // PR2 EX2
-    return ERR_NOT_IMPLEMENTED;
+    assert(object != NULL);
+	assert(organization_name != NULL);
+	assert(topic != NULL);
+	//auxiliar variables
+	tOrganization *orgPntr;
+	tPresentationQueueNode *act;
+	tPresentationQueueNode *tmp;
+	tPresentationQueue auxQueue;
+	bool found;
+	double maxScore, refScore;
+	//find if the organization exist in this congress.
+	orgPntr = congress_findOrganization(object, organization_name);
+	if (orgPntr == NULL)
+		return ERR_NOT_EXISTS;
+	//create a copy of the presentationQueue for next operations
+	presentationQueue_duplicate(&auxQueue,object->presentations);
+	//we can't asume that the queue isn't empty. If it is, return ERR
+	if (presentationQueue_empty(auxQueue))
+		return ERR_NOT_EXISTS;
+	//find if the topic exists in this queue
+	found = false;
+	act = auxQueue.first; //auxiliar pointer to travel over all the queue elements 
+	while (!found && act != NULL){  // act != NULL determines that the last->next elements isn't reached. Also we just need to reach the first element of presentation with this topic
+		if (strcmp(act->e.presentationTopic, topic) == 0)
+			found=true;
+		tmp = act;
+		act = tmp->next;
+	} if (!found) {//travelled all the queue and no presentation about ref topic found
+		return ERR_NOT_EXISTS;
+	}
+	//find the reference score and the max score
+	act = auxQueue.first; //auxiliar pointer to travel over all the queue elements 
+	maxScore = 0;
+	refScore = 0;
+	while (act != NULL) {
+		if ((strcmp(act->e.organization.name, organization_name) == 0) && (strcmp(act->e.presentationTopic, topic) == 0) && (act->e.score > refScore))
+			refScore = act->e.score;//this score is just set if it match with organization_name, presentation topic and its a bigger score than a previous score
+		if ((strcmp(act->e.organization.name, organization_name) != 0) && (strcmp(act->e.presentationTopic, topic) == 0) && (act->e.score > maxScore))
+			maxScore = act->e.score;//this score is just set if it doesn't match with organization_name, match with presentation topic and its a bigger score than a previous score
+		tmp = act;
+		act = tmp->next;
+	}
+	if (refScore == maxScore){
+		return 1; //refered organization shares the max score with another organization
+	} else if (refScore > maxScore){
+		return 3; //refered organization got the max score in this topic
+	} else {
+		return 0; //refered organization don't have the highest score
+	}
+	//TODO
+	//there is a shorter algorythm that first of all finds a presentation that matches in organization and topic. 
+	//If isn't found return ERR and if it exists set's ref score and goes directly to "find the reference socre and max score"
 }
 
 
