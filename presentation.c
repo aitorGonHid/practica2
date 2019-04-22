@@ -266,8 +266,20 @@ void presentationQueue_free(tPresentationQueue* queue) {
 
 // Get the average score for an organization
 double presentationQueue_getOrganizationScoreRecursive(tPresentationQueue *queue, tOrganization *organization) {    
-    // PR2 EX3
-    return ERR_NOT_IMPLEMENTED;
+    // PR2 EX3 return
+	double score, aux;
+    if (presentationQueue_empty(*queue)){
+		return score;
+	}
+	if (strcmp(queue->first->e.organization.name,organization->name) == 0) {
+		aux = queue->first->e.score;
+		presentationQueue_dequeue(queue);
+		score = aux + presentationQueue_getOrganizationScoreRecursive(queue, organization);
+	} else {
+		presentationQueue_dequeue(queue);
+		aux = 0;
+		score = score + presentationQueue_getOrganizationScoreRecursive(queue, organization);
+	}
 }
 
 

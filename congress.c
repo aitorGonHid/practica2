@@ -186,7 +186,14 @@ int congress_getOrganizationWins(tCongress* object, const char* organization_nam
 // Get the average score for an organization
 double congress_getOrganizationScore(tCongress* object, const char* organization_name) {
     // PR2 EX3   
-    return ERR_NOT_IMPLEMENTED;
+    tOrganization *org;
+	org = congress_findOrganization(object, organization_name);
+	if (org == NULL)
+		return 0;
+	tPresentationQueue *q;
+	q = &(object->presentations);
+	//recursive call
+	//return presentationQueue_getOrganizationScoreRecursive(q,org); << recursive function doesn't work
 }
 
 
@@ -206,7 +213,8 @@ tError congress_getOrganizationPresentations(tCongress* object, const char* orga
 	if (presentationQueue_empty(object->presentations)){
 		return ERR_INVALID_ORGANIZATION;
 	}
-	//presentationQueue_duplicate(q1,object->presentations); <<<< without comenting this the program crashes
+	presentationQueue_createQueue(presentations);
+	//presentationQueue_duplicate(q1,object->presentations);
 	//call the auxiliar recursive function
-	//return presentationQueue_getOrganizationPresentationsRecursive(q1,org,presentations);
+	//return presentationQueue_getOrganizationPresentationsRecursive(q1,org,presentations); <<< recursive function never ends
 }
