@@ -249,10 +249,9 @@ void presentationQueue_dequeue(tPresentationQueue* queue) {
 		queue->first=queue->first->next;
 		if (queue->first == NULL)
 			queue->last = NULL;
-		//destroy(node->e);//may be necessary. Query posted in the forum
+			
 		free(node);
-	}
-		
+	}		
 }
 
 
@@ -274,7 +273,21 @@ double presentationQueue_getOrganizationScoreRecursive(tPresentationQueue *queue
 
 // Get a queue with all the presentations for an organization
 tError presentationQueue_getOrganizationPresentationsRecursive(tPresentationQueue *queue, tOrganization *organization, tPresentationQueue* presentations) {
-    // PR2 EX3
-    return ERR_NOT_IMPLEMENTED;
+	// PR2 EX3
+	tPresentation *p1;
+	//check base case
+	p1 = presentationQueue_head(*queue);
+	//reached the queue last element
+	if (p1 == NULL)
+		return OK;
+	//compare the organization
+	if (strcmp(p1->organization.name,organization->name) == 0) {
+		//organization name match
+		presentationQueue_enqueue(presentations,*p1);
+	}
+	//dequeue the first elements to compare the next
+	presentationQueue_dequeue(queue);
+	//recall the function
+	presentationQueue_getOrganizationPresentationsRecursive(queue,organization,presentations);
 }
 

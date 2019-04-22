@@ -179,7 +179,7 @@ int congress_getOrganizationWins(tCongress* object, const char* organization_nam
 	}
 	//TODO
 	//there is a shorter algorythm that first of all finds a presentation that matches in organization and topic. 
-	//If isn't found return ERR and if it exists set's ref score and goes directly to "find the reference socre and max score"
+	//If isn't found return ERR and if it exists sets ref score and goes directly to "find the reference score and max score"
 }
 
 
@@ -192,6 +192,21 @@ double congress_getOrganizationScore(tCongress* object, const char* organization
 
 // Get a queue with all the presentations for an organization
 tError congress_getOrganizationPresentations(tCongress* object, const char* organization_name, tPresentationQueue* presentations) {
-    // PR2 EX3   
-    return ERR_NOT_IMPLEMENTED;
+    // PR2 EX3
+	tPresentation *p1;
+	tPresentationQueue *q1;
+	tOrganization *org;
+	tError errOut;
+	//find the organization in the congress
+	org = congress_findOrganization(object, organization_name);
+	if (org == NULL)
+		return ERR_INVALID_ORGANIZATION;
+	//get the presentationQueue from the congress
+	//check that the queue of presentations isn't empty
+	if (presentationQueue_empty(object->presentations)){
+		return ERR_INVALID_ORGANIZATION;
+	}
+	//presentationQueue_duplicate(q1,object->presentations); <<<< without comenting this the program crashes
+	//call the auxiliar recursive function
+	//return presentationQueue_getOrganizationPresentationsRecursive(q1,org,presentations);
 }
